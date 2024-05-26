@@ -11,7 +11,6 @@ const NewProperty = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { token } = useSelector((state) => state.auth);
-	console.log(token);
 	const {
 		register,
 		handleSubmit,

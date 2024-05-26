@@ -59,13 +59,13 @@ export function interested(propertyId,token){
 }
 
 
-export function likeOrDislike(propertyId,mode,token) {
+export function likeOrDislike(PropertyId,mode,token) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 
 		try {
 			console.log("LikeOrDislike_API", LikeOrDislike_API);
-			const response = await apiConnector("PUT",LikeOrDislike_API,{propertyId,mode,token});
+			const response = await apiConnector("PUT",LikeOrDislike_API,{PropertyId,mode,token});
 
 			if (!response.data.success) {
 				throw new Error(response.data.message)

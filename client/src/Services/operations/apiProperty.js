@@ -62,12 +62,12 @@ export function updateProperty(propertyId,title,description,rent,deposite,roomTy
 	}
 }
 
-export function deleteProperty(PropertyId, token) {
+export function deleteProperty(propertyId, token) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 		try {
 			console.log("DELETE_PROPERTY_API", DELETE_PROPERTY_API);
-			const response = await apiConnector("PUT", DELETE_PROPERTY_API, { PropertyId, token }, {
+			const response = await apiConnector("PUT", DELETE_PROPERTY_API, { propertyId, token }, {
 				Authorisation: `Bearer ${token}`,
 			});
 			if (!response.data.success) {

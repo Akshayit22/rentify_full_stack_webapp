@@ -7,15 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 const PrivateRoute = ({children}) => {
 	const {token} = useSelector((state)=>state.auth);
 	const navigator = useNavigate();
-	// if(token !== null){
-	// 	return children;
-
-	// }
-	// else{
-	// 	toast.error('You need to Login First to access the private routes.')
-		
-	// }
-	//console.log("open",token);
+	
 	return(
 		token !== null ? (children) : (
 			// (toast.error('You need to Login First to access the private routes.'))
