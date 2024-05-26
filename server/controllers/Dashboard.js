@@ -6,18 +6,18 @@ exports.dashboard = async(req,res) =>{
 	try{
 		const {id,email} = req.user;
 		const userDetails = await User.findOne({ email });
-		console.log("In the dashboard controller", req.user.email);
+		console.log("In the dashboard controller", userDetails);
 
 		//like and intrested remain
 		const OwnedProperties = await Property.find({owner:userDetails});
 
-		const IntrestedProperties = await Intrested.find({user:userDetails}).populate('property').exec();
+		const IntrestedProperties = await Intrested.find({user:userDetails});
 
 		return res.status(200).json({
 			success: true,
 			OwnedProperties,
 			IntrestedProperties,
-			message: "User details fetched successfully",
+			message: "Dashboard details fetched successfully",
 		});
 
 
@@ -40,7 +40,7 @@ exports.likeOrDislike = async(req,res) =>{
 		const userDetails = await User.findOne({ email });
 		console.log("In the likeOrDislike controller", req.user.email);
 
-		const PropertyDetails = await Property.findById({PropertyId});
+		const PropertyDetails  = await Property.findById({_id:PropertyId})
 
 		if (!PropertyId || !mode) {
 			return res.status(403).send({
@@ -48,16 +48,17 @@ exports.likeOrDislike = async(req,res) =>{
 				message: "All Fields are required",
 			});
 		}
-
+		console.log("mode checking");
+		var saved;
 		if(mode === "Like"){
-			const saved = await Property.findByIdAndUpdate(
+			saved = await Property.findByIdAndUpdate(
 					{_id:PropertyId},
 					{LikesCount: PropertyDetails.LikesCount + 1},
 					{new:true}
 			)
 		}
 		else if(mode == "Dislike"){
-			const saved = await Property.findByIdAndUpdate(
+			saved = await Property.findByIdAndUpdate(
 				{_id:PropertyId},
 				{LikesCount: PropertyDetails.LikesCount - 1},
 				{new:true}
@@ -66,6 +67,7 @@ exports.likeOrDislike = async(req,res) =>{
 
 		return res.status(200).json({
 			success: true,
+			saved,
 			message: "Liked or Unliked successfully",
 		});
 

@@ -3,6 +3,33 @@ const User = require('../models/User')
 
 
 /*
+{
+    "title":"Room for Bachelors",
+    "description":"Room for Bachelors both girls or boys only not for family",
+    "rent":"1800",
+    "deposite":"50000",
+    "roomType":"1BHK",
+    "area":"Baner",
+    "city":"Pune",
+    "constructedIn":"2019",
+    "NearestHospitalDistance":"3 KM"
+}
+
+update
+
+{
+    "propertyId":"6652f24c6065d470e56b4a00",
+    "title":"Room for Bachelors max 5",
+    "description":"Room for Bachelors both girls or boys maximum 5 only, not for family",
+    "rent":"1800",
+    "deposite":"50000",
+    "roomType":"1BHK",
+    "area":"Baner",
+    "city":"Pune",
+    "constructedIn":"2018",
+    "NearestHospitalDistance":"3.5 KM"
+}
+
 {title,description,image,rent,deposite,roomType,area,city,constructedIn,NearestHospitalDistance,owner}
 */
 exports.createProperty = async (req, res) => {
@@ -82,7 +109,7 @@ exports.deleteProperty = async (req,res) =>{
 	try{
 		const {propertyId} = req.body;
 
-		const resp = await Blog.findByIdAndDelete(
+		const resp = await Property.findByIdAndDelete(
 			{_id:propertyId}
 		);
 
@@ -103,16 +130,16 @@ exports.deleteProperty = async (req,res) =>{
 
 exports.getProperty = async(req,res) =>{
 	try{
-		const id = req.params.id || req.body.id;
-
-		if(!id || id  === undefined || id === null){
+		const PropertyId = req.params.id || req.body.id;
+		console.log("id give is : "+PropertyId);
+		if(!PropertyId || PropertyId  === undefined || PropertyId === null){
 			return res.status(403).send({
 				success: false,
 				message: "ID Fields are required",
 			});
 		}
 
-		const PropertyDetails  = await Property.find({_id:id})
+		const PropertyDetails  = await Property.findById({_id:PropertyId})
 				.populate("owner")
 				.exec();
 
@@ -141,7 +168,7 @@ exports.getProperty = async(req,res) =>{
 
 exports.getAllProperty = async (req, res) => {
 	try {
-		const AllProperty = await Blog.find({})
+		const AllProperty = await Property.find({})
 			.populate("owner")
 			.exec();
 		
