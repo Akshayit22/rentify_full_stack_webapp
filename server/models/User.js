@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		contact:{
+			type: String,
+			required: true,
+		},
 		password: {
 			type: String,
 			required: true,
@@ -23,19 +27,6 @@ const userSchema = new mongoose.Schema(
 		token: {
 			type: String,
 		},
-		image:{
-			type:String,
-			require:true,
-		},
-		additionalDetails: {
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: "Profile",
-		},
-		savedBlogs:[{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Blog",
-		}],
 	},
 	{ timestamps: true }
 );

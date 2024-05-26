@@ -3,8 +3,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const database = require("./config/database");
-const fileUpload = require("express-fileupload");
-const cloudinary = require("./config/cloudinary");
 const header_middleware = require("./middlewares/header");
 
 const app = express();
@@ -20,14 +18,6 @@ app.use(cors());
 
 app.options("*", cors());
 
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/tmp",
-  })
-);
-
-cloudinary.cloudinaryConnect();
 
 
 /* Routes defining */
@@ -35,14 +25,8 @@ cloudinary.cloudinaryConnect();
 const userRoutes = require("./routes/User");
 app.use("/api/v1/auth", userRoutes);
 
-const blogRoutes = require("./routes/Blog");
-app.use("/api/v1/blog",blogRoutes);
-
-const commentRoutes = require('./routes/Comment');
-app.use("/api/v1/comment",commentRoutes);
-
-const profileRoutes = require("./routes/Profile");
-app.use("/api/v1/profile",profileRoutes);
+const propertyRoutes = require("./routes/Property");
+app.use("/api/v1/property",propertyRoutes);
 
 
 
