@@ -39,9 +39,9 @@ const Dashboard = () => {
 
 	useEffect(() => {
 		dispatch(setUpdateProperty(false));
-		if (ownedProperties == null && interestedProperties == null) {
+		
 			dispatch(dashboard(token));
-		}
+		
 		console.log("ownedProperties", ownedProperties);
 		console.log("interestedProperties", interestedProperties);
 

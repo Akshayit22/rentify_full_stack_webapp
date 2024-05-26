@@ -5,13 +5,13 @@
     "description": "full-stack application that allows users to create, update, read, search, save and comment on blogs of different categories. \n I build this Application using React, Redux, TailwindCss, Axios in frontend and Nodejs, Mongodb, Nodemailer, Cloudinary, JWT authentication in backend.",
     "version": "1.0.0"
   },
-  "host": "betterblog-blog-app.onrender.com/api/v1",
+  "host": "https://betterblog-blog-app.onrender.com/api/v1",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
-    "/createBlog": {
+    "/createProperty": {
       "post": {
         "description": "",
         "parameters": [
@@ -29,16 +29,31 @@
                 "token": {
                   "example": "any"
                 },
-                "content": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "referenceLinks": {
-                  "example": "any"
-                },
                 "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "rent": {
+                  "example": "any"
+                },
+                "deposite": {
+                  "example": "any"
+                },
+                "roomType": {
+                  "example": "any"
+                },
+                "area": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "constructedIn": {
+                  "example": "any"
+                },
+                "NearestHospitalDistance": {
                   "example": "any"
                 }
               }
@@ -61,7 +76,7 @@
         }
       }
     },
-    "/updateBlog": {
+    "/updateProperty": {
       "put": {
         "description": "",
         "parameters": [
@@ -79,22 +94,34 @@
                 "token": {
                   "example": "any"
                 },
-                "content": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "referenceLinks": {
-                  "example": "any"
-                },
-                "blogId": {
+                "propertyId": {
                   "example": "any"
                 },
                 "title": {
                   "example": "any"
                 },
-                "image": {
+                "description": {
+                  "example": "any"
+                },
+                "rent": {
+                  "example": "any"
+                },
+                "deposite": {
+                  "example": "any"
+                },
+                "roomType": {
+                  "example": "any"
+                },
+                "area": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "constructedIn": {
+                  "example": "any"
+                },
+                "NearestHospitalDistance": {
                   "example": "any"
                 }
               }
@@ -117,7 +144,7 @@
         }
       }
     },
-    "/getAllBlogs": {
+    "/getAllProperty": {
       "get": {
         "description": "",
         "responses": {
@@ -130,7 +157,7 @@
         }
       }
     },
-    "/getBlog/{id}": {
+    "/getProperty/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -157,7 +184,7 @@
         }
       }
     },
-    "/deleteBlog": {
+    "/deleteProperty": {
       "put": {
         "description": "",
         "parameters": [
@@ -175,7 +202,7 @@
                 "token": {
                   "example": "any"
                 },
-                "blogId": {
+                "propertyId": {
                   "example": "any"
                 }
               }
@@ -185,335 +212,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/createComment": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "blogId": {
-                  "example": "any"
-                },
-                "body": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/updateComment": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "commentId": {
-                  "example": "any"
-                },
-                "body": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "301": {
-            "description": "Moved Permanently"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/deleteComment": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "blogId": {
-                  "example": "any"
-                },
-                "commentId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "301": {
-            "description": "Moved Permanently"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/updateProfile": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "gender": {
-                  "example": "any"
-                },
-                "about": {
-                  "example": "any"
-                },
-                "contact": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getUserDetails": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/getUpdatedUser": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/saveBlog": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "blogId": {
-                  "example": "any"
-                },
-                "mode": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/uploader": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "301": {
-            "description": "Moved Permanently"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -576,6 +274,9 @@
                 "email": {
                   "example": "any"
                 },
+                "contact": {
+                  "example": "any"
+                },
                 "password": {
                   "example": "any"
                 }
@@ -589,9 +290,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
@@ -677,77 +375,6 @@
         }
       }
     },
-    "/uploadImage": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "301": {
-            "description": "Moved Permanently"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/contactUs": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "message": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/dashboard": {
       "post": {
         "description": "",
@@ -764,6 +391,88 @@
               "type": "object",
               "properties": {
                 "token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/likeOrDislike": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                },
+                "PropertyId": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/intrested": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                },
+                "PropertyId": {
                   "example": "any"
                 }
               }
