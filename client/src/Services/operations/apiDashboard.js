@@ -4,24 +4,25 @@ import { toast } from "react-hot-toast";
 
 const {DASHBOARD_API, LikeOrDislike_API, Interested_API} = DashboardEndpoints;
 
-import {setProfileDetails,setUser,setUserBlogs} from '../../redux/slices/profileSlice';
+import {setOwnedProperties,setInterestedProperties} from '../../redux/slices/dashboardSlice';
 
-export function dashboard(){
+export function dashboard(token){
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 
 		try {
 			console.log("DASHBOARD_API", DASHBOARD_API);
-			const response = await apiConnector("POST",DASHBOARD_API,{propertyId,token});
+			const response = await apiConnector("POST",DASHBOARD_API,{token});
 
 			if (!response.data.success) {
 				throw new Error(response.data.message)
 			}
 			toast.success(response.data.message);
 
-			console.log(response.data.OwnedProperties);
-			console.log(response.data.IntrestedProperties);
+			console.log(response.data);
 
+			dispatch(setInterestedProperties(response.data.IntrestedProperties));
+			dispatch(setOwnedProperties(response.data.OwnedProperties));
 
 		}
 		catch (error) {

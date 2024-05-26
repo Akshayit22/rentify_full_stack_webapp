@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const propertySlice= createSlice({
-    name:"blog",
+    name:"property",
     initialState:initialState,
     reducers:{
         addProperties : (state, action) =>{

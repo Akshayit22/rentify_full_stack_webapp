@@ -7,12 +7,11 @@ import OpenRoute from './Component/Auth/OpenRoute';
 import ResetPassword from './pages/ResetPassword';
 import GetStarted from './pages/GetStarted';
 import Navbar from './pages/common/Navbar';
-import Blog from './pages/blog/blog';
 import Footer from './pages/common/Footer';
-import NewBlog from './pages/blog/BlogForm/NewBlog';
-import UpdatedBlog from './pages/blog/BlogForm/UpdatedBlog';
-
-import ImageUpload from './pages/blog/BlogFormComponents/ImageUpload';
+import Property from './pages/property/Property';
+// import Blog from './pages/blog/blog';
+// import NewBlog from './pages/blog/BlogForm/NewBlog';
+// import UpdatedBlog from './pages/blog/BlogForm/UpdatedBlog';
 
 function App() {
 
@@ -32,14 +31,14 @@ function App() {
 
         <Route path='/resetPassword' element={<OpenRoute><ResetPassword /></OpenRoute>} />
 
-        <Route path='/property/:id' element={<PrivateRoute><Blog></Blog></PrivateRoute>} />
+        <Route path='/property/:id' element={<PrivateRoute><Property></Property></PrivateRoute>} />
 
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-
+{/* 
         <Route path='/createProperty' element={<PrivateRoute><NewBlog></NewBlog></PrivateRoute>}></Route>
 
         <Route path='/updateProperty/:id' element={<PrivateRoute> <UpdatedBlog></UpdatedBlog> </PrivateRoute>} />
-        
+         */}
         <Route path='*' element={<h1>Page Not Found 404</h1>}></Route>
       </Routes>
 

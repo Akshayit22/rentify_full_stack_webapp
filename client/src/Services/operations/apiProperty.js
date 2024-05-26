@@ -3,7 +3,7 @@ import { PropertyEndpoints } from "../api";
 import { toast } from "react-hot-toast";
 
 const { CREATE_PROPERTY_API, UPDATE_PROPERTY_API, GET_ALL_PROPERTY_API, GET_PROPERTY_API, DELETE_PROPERTY_API} = PropertyEndpoints;
-import { addBlogs, addBlog } from '../../redux/slices/blogsSlice';
+import { addProperties, addProperty } from '../../redux/slices/propertySlice';
 
 
 export function createProperty(data, token, navigate) {
@@ -105,7 +105,7 @@ export function getAllProperty() {
 			if (!response.data.success) {
 				throw new Error(response.data.message)
 			}
-			//dispatch(addBlogs(data.data));
+			dispatch(addProperties(data.data));
 
 
 		}
@@ -129,15 +129,13 @@ export function getProperty(id) {
 
 			const response = await apiConnector("GET", GET_PROPERTY_API + id);
 
-			// console.log(response.data.PropertyDetails);
+			//console.log(response.data.PropertyDetails);
 
 			if (!response.data.success) {
 				throw new Error(response.data.message)
 			}
 
-			//dispatch(addBlog(response.data.BlogDetails));
-
-
+			dispatch(addProperty(response.data.PropertyDetails));
 
 		}
 		catch (error) {

@@ -6,7 +6,7 @@ exports.dashboard = async(req,res) =>{
 	try{
 		const {id,email} = req.user;
 		const userDetails = await User.findOne({ email });
-		console.log("In the dashboard controller", userDetails);
+		console.log("In the dashboard controller", email);
 
 		//like and intrested remain
 		const OwnedProperties = await Property.find({owner:userDetails});

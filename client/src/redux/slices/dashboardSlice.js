@@ -7,7 +7,7 @@ const initialState ={
     interestedProperties:null,
 }
 
-const dashboardSlice =createSlice({
+const dashboardSlice = createSlice({
     name:"dashboard",
     initialState: initialState,
     reducers:{
@@ -19,7 +19,7 @@ const dashboardSlice =createSlice({
             state.interestedProperties = action.payload;
         },
         setOwnedProperties:(state,action) =>{
-            state.UserBlogs = action.payload;
+            state.ownedProperties = action.payload;
         }
     }
 });
