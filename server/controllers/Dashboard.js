@@ -96,7 +96,7 @@ exports.intrested = async (req, res) => {
 
 		const saveIntrested = await Intrested.create({
 			user: id,
-			property: PropertyId,
+			property: property,
 		})
 
 		const emailResponse = await mailSender(
