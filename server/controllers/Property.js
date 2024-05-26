@@ -38,6 +38,8 @@ exports.createProperty = async (req, res) => {
 		const { email, id } = req.user;
 		const userDetails = await User.findOne({ email });
 		
+		console.log(req.body);
+
 		if (!title || !description || !rent || !deposite || !roomType || !area || !city || !constructedIn || !NearestHospitalDistance) {
 			return res.status(403).send({
 				success: false,

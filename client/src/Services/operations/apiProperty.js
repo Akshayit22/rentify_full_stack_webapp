@@ -4,16 +4,15 @@ import { toast } from "react-hot-toast";
 
 const { CREATE_PROPERTY_API, UPDATE_PROPERTY_API, GET_ALL_PROPERTY_API, GET_PROPERTY_API, DELETE_PROPERTY_API} = PropertyEndpoints;
 import { addProperties, addProperty } from '../../redux/slices/propertySlice';
+import {dashboard} from '../operations/apiDashboard';
 
-
-export function createProperty(data, token, navigate) {
+export function createProperty(title,description,rent,deposite,roomType,area,city,constructedIn,NearestHospitalDistance,token, navigate) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 
 		try {
 			console.log("CREATE_PROPERTY_API", CREATE_PROPERTY_API);
-			const response = await apiConnector("POST", CREATE_PROPERTY_API, data, {
-				"Content-Type": "multipart/form-data",
+			const response = await apiConnector("POST", CREATE_PROPERTY_API, {title,description,rent,deposite,roomType,area,city,constructedIn,NearestHospitalDistance,token}, {
 				Authorisation: `Bearer ${token}`,
 			});
 
@@ -23,7 +22,7 @@ export function createProperty(data, token, navigate) {
 			}
 			console.log("CREATE_PROPERTY_API Response", response.data.NewProperty);
 			toast.success(response.data.message);
-			//navigate(`/property/${response.data.NewProperty._id}`);
+			navigate(`/property/${response.data.NewProperty._id}`);
 		}
 		catch (error) {
 			console.log(error);
@@ -35,15 +34,14 @@ export function createProperty(data, token, navigate) {
 	}
 }
 
-export function updateProperty(data, token, navigate) {
+export function updateProperty(propertyId,title,description,rent,deposite,roomType,area,city,constructedIn,NearestHospitalDistance, token, navigate) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 
 		try {
 			console.log("UPDATE_PROPERTY_API", UPDATE_PROPERTY_API);
 
-			const response = await apiConnector("PUT", UPDATE_PROPERTY_API, data, {
-				"Content-Type": "multipart/form-data",
+			const response = await apiConnector("PUT", UPDATE_PROPERTY_API,{propertyId,title,description,rent,deposite,roomType,area,city,constructedIn,NearestHospitalDistance, token}, {
 				Authorisation: `Bearer ${token}`,
 			});
 
@@ -52,8 +50,7 @@ export function updateProperty(data, token, navigate) {
 			}
 			toast.success(response.data.message);
 			console.log(response.data.NewProperty);
-			//dispatch(getBlog(blogId));
-			//navigate(`/blog/${response.data.NewBlog._id}`)
+			navigate(`/property/${response.data.NewProperty._id}`)
 		}
 		catch (error) {
 			console.log(error);
@@ -65,19 +62,19 @@ export function updateProperty(data, token, navigate) {
 	}
 }
 
-export function deleteProperty(blogId, token) {
+export function deleteProperty(PropertyId, token) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 		try {
 			console.log("DELETE_PROPERTY_API", DELETE_PROPERTY_API);
-			const response = await apiConnector("PUT", DELETE_PROPERTY_API, { propertyId, token }, {
+			const response = await apiConnector("PUT", DELETE_PROPERTY_API, { PropertyId, token }, {
 				Authorisation: `Bearer ${token}`,
 			});
 			if (!response.data.success) {
 				throw new Error(response.data.message)
 			}
 			toast.success(response.data.message);
-			//dispatch(getDashboard(token));
+			dispatch(dashboard(token));
 		}
 		catch (error) {
 			console.log(error);
