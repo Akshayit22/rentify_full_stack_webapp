@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlog } from '../../Services/operations/apiBlog';
+import { getProperty } from '../../Services/operations/apiProperty';
 import Spinner from '../../Component/Commen/Spinner';
 import { formatDate } from '../../Services/formatDate';
 import { CiEdit } from "react-icons/ci";
 import { MdKeyboardBackspace, MdSave } from "react-icons/md";
-import Comment from '../comment/Comment';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { saveBlog, getUpdatedUser, getProfile } from '../../Services/operations/apiProfile';;
+import { dashboard, likeOrDislike, interested } from '../../Services/operations/apiDashboard';;
 
-const Blog = () => {
+const Property = () => {
 
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
-	const { OneBlog } = useSelector((state) => state.blog);
-	var { user } = useSelector((state) => state.profile);
+	const { OneProperty } = useSelector((state) => state.Property);
+	var { user } = useSelector((state) => state.dashboard);
 	const { token } = useSelector((state) => state.auth);
 	const ID = location.pathname.split("/").at(-1);
-	const SingleBlog = OneBlog.length > 0 ? OneBlog[0] : null;
+	const SingleProperty = OneProperty.length > 0 ? OneProperty[0] : null;
 	var user = user ? JSON.parse(user) : null;
+
+	// like 
+	// interested
 
 	const HandleSaveBlog = (mode) => {
 		if (user == null) {
@@ -38,10 +40,10 @@ const Blog = () => {
 
 	useEffect(() => {
 		setLoading(true);
-		dispatch(getBlog(ID));
+		dispatch(getProperty(ID));
 		setLoading(false);
 
-		console.log("single blog", SingleBlog);
+		console.log("single Property", SingleProperty);
 		console.log("user", user);
 
 	}, []);
@@ -177,4 +179,4 @@ const Blog = () => {
 	);
 }
 
-export default Blog;
+export default Property;

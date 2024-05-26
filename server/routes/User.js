@@ -14,6 +14,7 @@ router.post("/signup",signup);
 router.put("/otpGenerator",otpGenerator);
 router.post("/resetPassword",resetPassword);
 
+
 router.post('/dashboard',AuthMid,dashboard);
 
 router.put('/likeOrDislike',AuthMid,likeOrDislike);

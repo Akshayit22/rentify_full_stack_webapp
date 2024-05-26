@@ -1,9 +1,9 @@
 import apiConnector  from '../apiConnector';
-import { AuthEndpoints, contactusEndpoint} from '../api';
+import { AuthEndpoints} from '../api';
 import { toast } from "react-hot-toast";
 import {setToken} from '../../redux/slices/authSlice.js';
-import {setUser} from '../../redux/slices/profileSlice.js';
-import {setProfileDetails,setUserBlogs} from '../../redux/slices/profileSlice';
+import {setUser} from '../../redux/slices/dashboardSlice.js';
+import {setOwnedProperties,setInterestedProperties} from '../../redux/slices/dashboardSlice.js';
 const { LOGIN_API, SIGNUP_API,RESETPASSWORD_API,OTPGENRATE_API,UPLOAD_IMAGE_API,DASHBOARD} = AuthEndpoints;
 
 function login(email, password, navigate) {
@@ -49,14 +49,14 @@ function login(email, password, navigate) {
 }
 export default login;
 
-export function signup(firstName,lastName,email,password,navigate){
+export function signup(firstName,lastName,email,contact,password,navigate){
 	return async(dispatch)=>{
 
 		//loading on
 		const toastId = toast.loading("Loading...")
 		try{
 			console.log("SIGNUP API RESPONSE",SIGNUP_API);
-			const response = await apiConnector("POST", SIGNUP_API,{firstName,lastName,email,password});
+			const response = await apiConnector("POST", SIGNUP_API,{firstName,lastName,email,contact,password});
 			//const response = {data:{success:true}};
 			console.log("SIGNUP API RESPONSE............", response);
 	
@@ -82,27 +82,6 @@ export function signup(firstName,lastName,email,password,navigate){
 	}
 }
 
-
-/*
-export function login(email,password,navigate){
-	return async(dispatch) =>{
-		// loading toast : On
-		try{
-			// Api call
-			setting data
-			navigating to next page
-		}
-		catch(error){
-			loging errors
-		}
-		// loading toast : off
-	}
-}
-
-
-*/
-
-
 export function logout() {
 	return async(dispatch) => {
 		dispatch(setToken(null))
@@ -110,8 +89,8 @@ export function logout() {
 		localStorage.removeItem("token")
 		localStorage.removeItem("user")
 		toast.success("Logged Out Successfully !!!")
-		dispatch(setProfileDetails(null));
-		dispatch(setUserBlogs(null));
+		dispatch(setOwnedProperties(null));
+		dispatch(setInterestedProperties(null));
 		//navigate("/")
 	}
 }
@@ -169,108 +148,3 @@ export function resetPassword(email,otp,password,confirmPassword, navigate) {
 		
 	}
 }
-
-
-/*
-export function signUp(
-  accountType,
-  firstName,
-  lastName,
-  email,
-  password,
-  confirmPassword,
-  otp,
-  navigate
-) {
-  return async (dispatch) => {
-    const toastId = toast.loading("Loading...")
-    dispatch(setLoading(true))
-    try {
-      const response = await apiConnector("POST", SIGNUP_API, {
-	accountType,
-	firstName,
-	lastName,
-	email,
-	password,
-	confirmPassword,
-	otp,
-      })
-
-      console.log("SIGNUP API RESPONSE............", response)
-
-      if (!response.data.success) {
-	throw new Error(response.data.message)
-      }
-      dispatch(setProgress(100));
-      toast.success("Signup Successful")
-      navigate("/login")
-    } catch (error) {
-      dispatch(setProgress(100));
-      console.log("SIGNUP API ERROR............", error)
-      toast.error("Signup Failed")
-      navigate("/signup")
-    }
-    dispatch(setLoading(false))
-    toast.dismiss(toastId)
-  }
-}
-
-
-
-*/
-
-//UPLOAD_IMAGE_API : contains image in req.files and return the url in response
-export function uploadImage(data,token){
-	return async(dispatch)=>{
-
-		const toastId = toast.loading("Image Uploading...")
-		try{
-			// const token = formData.token;
-			console.log("upload api :",token)
-			console.log("UPLOAD IMAGE :",UPLOAD_IMAGE_API);
-			const response = await apiConnector("POST", UPLOAD_IMAGE_API, data, {
-				"Content-Type": "multipart/form-data",
-				Authorisation: `Bearer ${token}`,
-			});
-			
-			console.log("UPLOAD IMAGE RESPONSE............", response);
-	
-			if (!response.data.success) {
-			  throw new Error(response.data.message)
-			}
-			
-			toast.success("image uploaded successfully");
-		}
-		catch(error){
-			console.log(error);
-			toast.error(error?.response?.data.message);
-			//toast.error('Something went wrong, please try again')
-		}
-
-		toast.dismiss(toastId);
-	}
-}
-
-// export function getDashboardDetails(token){
-// 	return async(dispatch)=>{
-// 		const toastId = toast.loading("Loading...");
-
-// 		try{
-// 			//console.log("get_Dashboard_Details",DASHBOARD);
-// 			const response = await apiConnector("POST", DASHBOARD,{token});
-// 			//console.log("get_Dashboard_Details RESPONSE............", response);
-	
-// 			if (!response.data.success) {
-// 			  throw new Error(response.data.message)
-// 			}
-
-// 			toast.success(response.data.message);
-// 		}
-// 		catch(error){
-// 			console.log(error);
-// 			toast.error(error.response?.data?.message);
-// 			//toast.error('Something went wrong, please try again')
-// 		}
-// 		toast.dismiss(toastId);
-// 	}
-// }

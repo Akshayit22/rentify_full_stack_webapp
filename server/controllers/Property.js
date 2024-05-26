@@ -55,7 +55,7 @@ exports.createProperty = async (req, res) => {
 
 		return res.status(200).json({
 			success: true,
-			NewProperty:NewProperty,
+			NewProperty,
 			message: "New Property Created Successfully.",
 		});
 
@@ -92,7 +92,7 @@ exports.updateProperty = async (req, res) => {
 
 		return res.status(200).json({
 			success: true,
-			NewProperty:NewProperty,
+			NewProperty,
 			message: "Property Updated successfully",
 		});
 	}

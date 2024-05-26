@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../Services/formatDate';
 import { MdOutlineInsertComment } from "react-icons/md";
 
-function AllBlogs() {
+function AllProperty() {
 
-	const { AllBlogs } = useSelector((state) => state.blog);
+	const { AllProperty } = useSelector((state) => state.property);
 	const navigate = useNavigate();
-	const data = AllBlogs;
-	console.log(data);
+	const data = AllProperty;
+	console.log(AllProperty);
 
 	return (
 		<div className='w-full '>
@@ -75,23 +75,4 @@ function AllBlogs() {
 	)
 }
 
-export default AllBlogs;
-
-{/* <div>
-	<a href="#"
-		class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Read
-                            More -></a>
-</div> 
-
-text
-<div class="flex flex-col justify-center items-center h-screen">
-    <div class="bg-cover bg-no-repeat w-full" style="background-image: url('https://images.unsplash.com/photo-1530053969600-caed2596d242');">
-        <h1 class="py-10 font-black text-8xl md:text-9xl bg-gray-100 mix-blend-lighten uppercase text-center">
-            Holidays <br>
-            At <br>
-            Bali
-        </h1>
-    </div>
-</div>
-
-*/}
+export default AllProperty;

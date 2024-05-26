@@ -28,19 +28,17 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/user-auth' element={<GetStarted ></GetStarted>}></Route>
 
-        <Route path='/test' element={<ImageUpload />} />
-
         <Route path='/home' element={<Home></Home>}></Route>
 
         <Route path='/resetPassword' element={<OpenRoute><ResetPassword /></OpenRoute>} />
 
-        <Route path='/blog/:id' element={<OpenRoute><Blog></Blog></OpenRoute>} />
+        <Route path='/property/:id' element={<PrivateRoute><Blog></Blog></PrivateRoute>} />
 
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
 
-        <Route path='/createBlog' element={<PrivateRoute><NewBlog></NewBlog></PrivateRoute>}></Route>
+        <Route path='/createProperty' element={<PrivateRoute><NewBlog></NewBlog></PrivateRoute>}></Route>
 
-        <Route path='/updateBlog/:id' element={<PrivateRoute> <UpdatedBlog></UpdatedBlog> </PrivateRoute>} />
+        <Route path='/updateProperty/:id' element={<PrivateRoute> <UpdatedBlog></UpdatedBlog> </PrivateRoute>} />
         
         <Route path='*' element={<h1>Page Not Found 404</h1>}></Route>
       </Routes>

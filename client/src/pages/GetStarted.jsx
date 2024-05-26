@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import login from '../Services/operations/apiAuth';
+
 const GetStarted = () => {
 
 	const [mode, setMode] = useState('login');
@@ -39,11 +40,11 @@ const GetStarted = () => {
 
 	const handleSubmitSignup = (data) => {
 		console.log(data);
-		if (data.email === '' || data.firstName === '' || data.lastName === '' ||data.password === '') {
+		if (data.email === '' || data.firstName === '' || data.lastName === '' || data.contact === '' ||data.password === '') {
 			toast.error('please fill the details');
 			return;
 		}
-		dispatch(signup(data.firstName, data.lastName, data.email, data.password, Navigate))
+		dispatch(signup(data.firstName, data.lastName, data.email, data.contact, data.password, Navigate))
 	}
 
 
@@ -118,7 +119,7 @@ const GetStarted = () => {
 													{...register('firstName')}>
 
 													{
-														errors.firstName && <p>Name is required</p>
+														errors.firstName && <p>firstName is required</p>
 													}
 												</input>
 											</div>
@@ -143,6 +144,18 @@ const GetStarted = () => {
 
 												{
 													errors.email && <p>Email is required</p>
+												}
+											</input>
+										</div>
+										{/* Contact */}
+										<div className='mt-5 flex flex-col'>
+											<label htmlFor='email'>Contact :</label>
+											<input type='contact' id='contact' name='contact'
+												className='bg-richblack-50 text-black p-1 rounded-md text-lg'
+												{...register('contact',)}>
+
+												{
+													errors.contact && <p>Contact is required</p>
 												}
 											</input>
 										</div>

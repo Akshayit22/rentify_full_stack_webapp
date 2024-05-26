@@ -11,7 +11,7 @@ const Navbar = () => {
 	const location = useLocation();
 	let [open, setOpen] = useState(false);
 
-	var { user } = useSelector((state) => state.profile);
+	var { user } = useSelector((state) => state.dashboard);
 	var user = user?JSON.parse(user):null;
 	const [getstarted, setGetStarted] = useState(true);
 	

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { getAllBlogs } from '../Services/operations/apiBlog';
+import { getAllProperty } from '../Services/operations/apiProperty';
 import Spinner from '../Component/Commen/Spinner';
-import AllBlogs from './blog/AllBlogs';
-import { toast } from 'react-toastify';
+import AllProperty from './property/AllProperty';
 
 const Home = () => {
 
@@ -12,7 +11,7 @@ const Home = () => {
 
 	useEffect(() => {
 		setLoading(true);
-		dispatch(getAllBlogs());
+		dispatch(getAllProperty());
 		setLoading(false);
 	}, []);
 
@@ -20,7 +19,7 @@ const Home = () => {
 		<div className='min-h-screen'>
 			{
 
-				loading ? <Spinner></Spinner> : <AllBlogs></AllBlogs>
+				loading ? <Spinner></Spinner> : <AllProperty></AllProperty>
 					
 			}
 			
