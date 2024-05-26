@@ -4,18 +4,17 @@ const router = express.Router();
 
 const {AuthMid} = require('../middlewares/AuthMid');
 
-const {createBlog,getAllBlogs} = require("../controllers/Blog");
-const {updateBlog,getBlog,deleteBlog} = require("../controllers/Blog");
+const {createProperty, updateProperty, deleteProperty, getProperty, getAllProperty} = require('../controllers/Property');
 
 
 
-router.post('/createBlog',AuthMid,createBlog);
-router.put('/updateBlog',AuthMid,updateBlog);
+router.post('/createProperty',AuthMid,createProperty);
+router.put('/updateProperty',AuthMid,updateProperty);
 
-router.get('/getAllBlogs',getAllBlogs);
-router.get('/getBlog/:id',getBlog);
+router.get('/getAllProperty',getAllProperty);
+router.get('/getProperty/:id',getProperty);
 
-router.put('/deleteBlog',AuthMid,deleteBlog);
+router.put('/deleteProperty',AuthMid,deleteProperty);
 
 
 module.exports = router;

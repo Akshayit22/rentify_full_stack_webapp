@@ -4,21 +4,17 @@ const otpGenerator = require("otp-generator");
 require("dotenv").config();
 
 const User = require('../models/User');
-const Profile = require('../models/Profile');
 const OTP = require('../models/OTP');
-const ContactUs = require('../models/ContactUs');
-const Blog = require('../models/Blog');
 
-const { uploadImageToCloudinary } = require('../config/imageUploader');
 const mailSender = require("../config/mailSender");
 
 
 exports.signup = async (req, res) => {
 	try {
-		const { firstName, lastName, email, password } = req.body;
+		const { firstName, lastName, email, contact, password } = req.body;
 		console.log("In the Sign up controller", req.body);
 
-		if (!firstName || !lastName || !email || !password) {
+		if (!firstName || !lastName || !email || !password || !contact) {
 			return res.status(403).send({
 				success: false,
 				message: "All Fields are required",
@@ -34,32 +30,13 @@ exports.signup = async (req, res) => {
 
 		const HashedPassword = await bcrypt.hash(password, 10);
 
-		const profileDetails = await Profile.create({
-			gender: null,
-			about: null,
-			contact: null,
-		});
-
 		const image = `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`;
 
-		var sampleBlog = await Blog.find({});
-		sampleBlog = sampleBlog[0];
-
-		console.log(sampleBlog);
 
 		const user = await User.create({
-			firstName, lastName, email, image,
+			firstName, lastName, email, image, contact,
 			password: HashedPassword,
-			additionalDetails: profileDetails,
-			savedBlogs:sampleBlog,
 		});
-
-		// here we are adding one sample blog in the saved array of user schema because it gives error in atlas mongodb and removing it.
-		const saved = await User.findByIdAndUpdate(
-			{_id:user._id},
-			{$pull:{savedBlogs:sampleBlog._id}},
-			{new:true}
-		);
 
 		return res.status(200).json({
 			success: true,
@@ -89,7 +66,7 @@ exports.login = async (req, res) => {
 			});
 		}
 
-		const user = await User.findOne({ email }).populate('additionalDetails');
+		const user = await User.findOne({ email });
 
 		if (!user) {
 			// Return 401 Unauthorized status code with error message
@@ -206,7 +183,7 @@ exports.resetPassword = async (req, res) => {
 			});
 		}
 
-		const user = await User.findOne({ email }).populate('additionalDetails');
+		const user = await User.findOne({ email });
 
 		if (!user) {
 			// Return 401 Unauthorized status code with error message
@@ -250,136 +227,6 @@ exports.resetPassword = async (req, res) => {
 		return res.status(500).json({
 			success: false,
 			message: "Password is not reset. Please try again.",
-		});
-	}
-}
-
-exports.CloudMail = async (req, res) => {
-	try {
-		const { email } = req.body;
-		if (!email) {
-			return res.status(400).json({
-				success: false,
-				message: `Please Fill up All the Required Fields`,
-			});
-		}
-		if (req.files) {
-			var url = '';
-			//Image Uploader
-			const Image = req.files.Image;
-			const ImageUpload = await uploadImageToCloudinary(
-				Image,
-				process.env.FOLDER_NAME,
-			)
-			url = ImageUpload.secure_url;
-		}
-		else {
-			console.log('image not found');
-			return res.status(301).json({
-				success:false,
-				message:"Image Not Found",
-			});
-		}
-
-		// Mail Sender
-		const emailResponse = await mailSender(
-			"image upload",
-			email,
-			"Image Uploaded Successfully",
-			`Image Uploaded Successfully on url : ${url}`,
-		);
-		console.log("Email sent successfully:", emailResponse.response);
-
-		//Schema Updation
-		// const UpdateData = await User.findOneAndUpdate(
-		// 	{ email: email },
-		// 	{ image: url },
-		// 	{ new: true }
-		// )
-
-		res.status(200).json({
-			success: true,
-			message: "image upload - mail sended successfully - schema updated.",
-			url: url,
-			email: emailResponse,
-			//schemachange: UpdateData,
-		})
-
-	}
-	catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			success: false,
-			message: "Error in CloudMail. Please try again.",
-		});
-	}
-}
-
-exports.contactUs = async(req,res) =>{
-	try{
-		const {email,message,name} = req.body;
-
-		const resp = await ContactUs.create({
-			email,message,name
-		});
-
-		console.log("contact us form sumbitted successfully.");
-
-		return res.status(200).json({
-			success: true,
-			response : resp,
-			message: "contact us form sumbitted successfully.",
-		});		
-
-	}
-	catch(error){
-		console.error(error);
-		return res.status(500).json({
-			success: false,
-			url:url,
-			message: "Error submitting contact us form. Please try again.",
-		});
-	}
-}
-
-exports.uploadImage = async(req,res) =>{
-	try{
-		console.log(req);
-
-		const thumbnail = req.files.thumbnailImage;
-
-		if (thumbnail) {
-			var url = '';
-			//Image Uploader
-			const Image = thumbnail;
-			const ImageUpload = await uploadImageToCloudinary(
-				Image,
-				process.env.FOLDER_NAME,
-			)
-			url = ImageUpload.secure_url;
-		}
-		else {
-			console.log('image not found');
-			return res.status(301).json({
-				success:false,
-				message:"Image Not Found",
-			});
-		}
-
-		res.status(200).json({
-			success: true,
-			url: url,
-			message: "image uploaded Successfully."
-		})
-
-
-	}
-	catch(error){
-		console.error(error);
-		return res.status(500).json({
-			success: false,
-			url:url,
-			message: "Error in uploading. Please try again.",
 		});
 	}
 }
