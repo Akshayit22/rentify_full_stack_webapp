@@ -35,13 +35,13 @@ export function dashboard(token){
 }
 
 
-export function interested(propertyId,token){
+export function interested(PropertyId,token){
 	return async (dispatch) => {
 		const toastId = toast.loading("Loading...");
 
 		try {
 			console.log("Interested_API", Interested_API);
-			const response = await apiConnector("PUT",Interested_API,{propertyId,token});
+			const response = await apiConnector("PUT",Interested_API,{PropertyId,token});
 
 			if (!response.data.success) {
 				throw new Error(response.data.message)
