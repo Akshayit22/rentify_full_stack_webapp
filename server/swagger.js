@@ -1,18 +1,18 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require( 'swagger-autogen' )();
 
 const doc = {
-	info:{
-		title:'BetterBlog- Blog Application system with MERN stack',
-		description:'full-stack application that allows users to create, update, read, search, save and comment on blogs of different categories. \n I build this Application using React, Redux, TailwindCss, Axios in frontend and Nodejs, Mongodb, Nodemailer, Cloudinary, JWT authentication in backend.'
+	info: {
+		title: 'rentify full stack Application system with MERN stack',
+		description: 'Tech stack : REACT.JS , NODE.JS , EXPRESS.JS, MONGODB, TAILWINDCSS '
 	},
-	host:"https://betterblog-blog-app.onrender.com/api/v1"
+	host: "https://rentify-full-stack-webapp.onrender.com/api/v1/"
 	// host:'localhost:3000/api/v1/'
 };
 
 const outputFile = './swagger-output.json';
-const routes = ['./routes/Property.js','./routes/User.js'];
+const routes = [ './routes/Property.js', './routes/User.js' ];
 
-swaggerAutogen(outputFile ,routes, doc);
+swaggerAutogen( outputFile, routes, doc );
 
 /* PUT IN server.js
 

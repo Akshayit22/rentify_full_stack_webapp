@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "BetterBlog- Blog Application system with MERN stack",
-    "description": "full-stack application that allows users to create, update, read, search, save and comment on blogs of different categories. \n I build this Application using React, Redux, TailwindCss, Axios in frontend and Nodejs, Mongodb, Nodemailer, Cloudinary, JWT authentication in backend.",
+    "title": "rentify full stack Application system with MERN stack",
+    "description": "Tech stack : REACT.JS , NODE.JS , EXPRESS.JS, MONGODB, TAILWINDCSS ",
     "version": "1.0.0"
   },
-  "host": "https://betterblog-blog-app.onrender.com/api/v1",
+  "host": "https://rentify-full-stack-webapp.onrender.com/api/v1/",
   "basePath": "/",
   "schemes": [
     "http"
